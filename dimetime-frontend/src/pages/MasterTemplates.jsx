@@ -21,7 +21,7 @@ export default function MasterTemplates({ user }) {
     setLoading(true);
     setError('');
     try {
-      const mdRes = await axios.get('http://localhost:8080/api/master-data');
+      const mdRes = await axios.get('https://dime-time-backend.onrender.com/api/master-data');
       if (mdRes.data) {
         setMasterData(mdRes.data);
       }
@@ -47,10 +47,10 @@ export default function MasterTemplates({ user }) {
     e.preventDefault();
     try {
       if (editingMasterItem) {
-        await axios.put(`http://localhost:8080/api/master-data/${subTabMaster}/${editingMasterItem.id}`, masterForm);
+        await axios.put(`https://dime-time-backend.onrender.com/api/master-data/${subTabMaster}/${editingMasterItem.id}`, masterForm);
         showToastSuccess('Master Data template updated successfully.');
       } else {
-        await axios.post(`http://localhost:8080/api/master-data/${subTabMaster}`, masterForm);
+        await axios.post(`https://dime-time-backend.onrender.com/api/master-data/${subTabMaster}`, masterForm);
         showToastSuccess('New Master Data template registered.');
       }
       setShowMasterModal(false);
@@ -65,7 +65,7 @@ export default function MasterTemplates({ user }) {
   const deleteMasterItem = async (id) => {
     if (!window.confirm('Are you sure you want to delete this master data template?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/master-data/${subTabMaster}/${id}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/master-data/${subTabMaster}/${id}`);
       showToastSuccess('Master template deleted.');
       fetchMasterData();
     } catch (err) {

@@ -61,16 +61,16 @@ export default function PurchaseOrders({ user }) {
     try {
       let response;
       if (role === 'ADMIN') {
-        response = await axios.get('http://localhost:8080/api/purchase-orders');
+        response = await axios.get('https://dime-time-backend.onrender.com/api/purchase-orders');
       } else if (role === 'SUPPLIER') {
         const url = user?.id 
-          ? `http://localhost:8080/api/purchase-orders/supplier/id/${user.id}`
-          : `http://localhost:8080/api/purchase-orders/supplier/${user.companyName}`;
+          ? `https://dime-time-backend.onrender.com/api/purchase-orders/supplier/id/${user.id}`
+          : `https://dime-time-backend.onrender.com/api/purchase-orders/supplier/${user.companyName}`;
         response = await axios.get(url);
       } else {
         const url = user?.id
-          ? `http://localhost:8080/api/purchase-orders/manufacturer/id/${user.id}`
-          : `http://localhost:8080/api/purchase-orders/manufacturer/${user.username}`;
+          ? `https://dime-time-backend.onrender.com/api/purchase-orders/manufacturer/id/${user.id}`
+          : `https://dime-time-backend.onrender.com/api/purchase-orders/manufacturer/${user.username}`;
         response = await axios.get(url);
       }
       if (response.data) {
@@ -96,7 +96,7 @@ export default function PurchaseOrders({ user }) {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.post('http://localhost:8080/api/purchase-orders', {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/purchase-orders', {
         supplier: user.username,
         material: formData.material,
         grade: formData.grade,
@@ -117,7 +117,7 @@ export default function PurchaseOrders({ user }) {
   // Manufacturer accepts PO and starts production
   const handleAcceptOrder = async (poNumber) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/purchase-orders/${poNumber}/status?status=PRODUCTION_START&operator=${user.username}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/status?status=PRODUCTION_START&operator=${user.username}`);
       if (response.status === 200) {
         setSuccess(`Purchase Order ${poNumber} accepted. Production started!`);
         fetchPOs();
@@ -129,7 +129,7 @@ export default function PurchaseOrders({ user }) {
 
   const handleApprove = async (poNumber) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/purchase-orders/${poNumber}/status?status=APPROVED&operator=${user.username}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/status?status=APPROVED&operator=${user.username}`);
       if (response.status === 200) {
         setSuccess(`Purchase Order ${poNumber} status updated to APPROVED.`);
         fetchPOs();
@@ -141,7 +141,7 @@ export default function PurchaseOrders({ user }) {
 
   const handleReject = async (poNumber) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/purchase-orders/${poNumber}/status?status=REJECTED&operator=${user.username}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/status?status=REJECTED&operator=${user.username}`);
       if (response.status === 200) {
         setSuccess(`Purchase Order ${poNumber} status updated to REJECTED.`);
         fetchPOs();
@@ -154,7 +154,7 @@ export default function PurchaseOrders({ user }) {
   const handleDelete = async (id, poNumber) => {
     if (!window.confirm(`Are you sure you want to delete PO ${poNumber}?`)) return;
     try {
-      const response = await axios.delete(`http://localhost:8080/api/purchase-orders/${id}?operator=${user.username}`);
+      const response = await axios.delete(`https://dime-time-backend.onrender.com/api/purchase-orders/${id}?operator=${user.username}`);
       if (response.status === 200) {
         setSuccess(`Purchase Order ${poNumber} deleted successfully.`);
         fetchPOs();
@@ -165,12 +165,12 @@ export default function PurchaseOrders({ user }) {
   };
 
   const handleDownloadPdf = (poNumber) => {
-    window.open(`http://localhost:8080/api/purchase-orders/${poNumber}/pdf`, '_blank');
+    window.open(`https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/pdf`, '_blank');
   };
 
   const handleDownloadQr = async (poNumber) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/purchase-orders/${poNumber}/qr`);
+      const response = await fetch(`https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/qr`);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -200,7 +200,7 @@ export default function PurchaseOrders({ user }) {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8080/api/purchase-orders/${editingPo.id}?operator=${user.username}`, {
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/purchase-orders/${editingPo.id}?operator=${user.username}`, {
         ...editingPo,
         material: editFormData.material,
         grade: editFormData.grade,
@@ -1039,7 +1039,7 @@ export default function PurchaseOrders({ user }) {
                   }}>
                     {!qrError ? (
                       <img 
-                        src={`http://localhost:8080/api/purchase-orders/${selectedPo.poNumber}/qr`}
+                        src={`https://dime-time-backend.onrender.com/api/purchase-orders/${selectedPo.poNumber}/qr`}
                         alt="PO QR Code"
                         onError={() => setQrError(true)}
                         style={{ width: '150px', height: '150px' }}
@@ -1126,7 +1126,7 @@ export default function PurchaseOrders({ user }) {
               boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)'
             }}>
               <img 
-                src={`http://localhost:8080/api/purchase-orders/${selectedPo.poNumber}/qr`}
+                src={`https://dime-time-backend.onrender.com/api/purchase-orders/${selectedPo.poNumber}/qr`}
                 alt="PO QR Code Large"
                 style={{ width: '300px', height: '300px', display: 'block' }}
               />

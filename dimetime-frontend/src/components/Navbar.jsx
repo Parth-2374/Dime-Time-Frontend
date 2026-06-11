@@ -29,7 +29,7 @@ export default function Navbar({ user }) {
 
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/notifications?username=${username}&unreadOnly=true`);
+      const response = await axios.get(`https://dime-time-backend.onrender.com/api/notifications?username=${username}&unreadOnly=true`);
       if (response.data) {
         setNotifications(response.data);
       }
@@ -40,7 +40,7 @@ export default function Navbar({ user }) {
 
   const handleMarkAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:8080/api/notifications/${id}/read`);
+      await axios.put(`https://dime-time-backend.onrender.com/api/notifications/${id}/read`);
       setNotifications(prev => prev.filter(n => n.id !== id));
     } catch (e) {
       console.error('Failed to mark notification as read', e);

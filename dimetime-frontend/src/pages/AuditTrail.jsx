@@ -27,7 +27,7 @@ export default function AuditTrail() {
   const fetchLogs = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8080/api/audit-logs');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/audit-logs');
       if (response.data) {
         setLogs(response.data);
       }

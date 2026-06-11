@@ -25,8 +25,8 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
     setError('');
     try {
       const [featRes, backupsRes] = await Promise.all([
-        axios.get('http://localhost:8080/api/features'),
-        axios.get('http://localhost:8080/api/backups')
+        axios.get('https://dime-time-backend.onrender.com/api/features'),
+        axios.get('https://dime-time-backend.onrender.com/api/backups')
       ]);
       if (featRes.data) setFeatures(featRes.data);
       if (backupsRes.data) setBackups(backupsRes.data);
@@ -59,11 +59,11 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
     e.preventDefault();
     try {
       if (editingFeature) {
-        await axios.put(`http://localhost:8080/api/features/${editingFeature.id}`, featureForm);
+        await axios.put(`https://dime-time-backend.onrender.com/api/features/${editingFeature.id}`, featureForm);
         showToastSuccess(`Feature '${featureForm.name}' updated.`);
       } else {
         const payload = { ...featureForm, createdBy: adminUsername };
-        await axios.post('http://localhost:8080/api/features', payload);
+        await axios.post('https://dime-time-backend.onrender.com/api/features', payload);
         showToastSuccess(`Feature '${featureForm.name}' added successfully.`);
       }
       setShowAddModal(false);
@@ -79,7 +79,7 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
   const toggleStatus = async (f, newStatus) => {
     try {
       const payload = { ...f, status: newStatus };
-      await axios.put(`http://localhost:8080/api/features/${f.id}`, payload);
+      await axios.put(`https://dime-time-backend.onrender.com/api/features/${f.id}`, payload);
       showToastSuccess(`Feature '${f.name}' status set to ${newStatus}.`);
       fetchSystemData();
       triggerRefresh();
@@ -92,7 +92,7 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
   const deleteFeature = async (id) => {
     if (!window.confirm('Delete this feature flag?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/features/${id}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/features/${id}`);
       showToastSuccess('Feature flag deleted.');
       fetchSystemData();
       triggerRefresh();
@@ -106,7 +106,7 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
   const createBackup = async () => {
     setLoading(true);
     try {
-      await axios.post(`http://localhost:8080/api/backups/create?operator=${adminUsername}`);
+      await axios.post(`https://dime-time-backend.onrender.com/api/backups/create?operator=${adminUsername}`);
       showToastSuccess('New database snapshot generated.');
       fetchSystemData();
     } catch (err) {
@@ -120,7 +120,7 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
     if (!window.confirm(`Restore database to checkpoint of ${filename}?`)) return;
     setLoading(true);
     try {
-      await axios.post(`http://localhost:8080/api/backups/restore/${filename}?operator=${adminUsername}`);
+      await axios.post(`https://dime-time-backend.onrender.com/api/backups/restore/${filename}?operator=${adminUsername}`);
       showToastSuccess('Ledger snapshot restored.');
       fetchSystemData();
     } catch (err) {
@@ -131,7 +131,7 @@ export default function SystemSettings({ user, onFeaturesChanged }) {
   };
 
   const downloadBackupFile = (filename) => {
-    window.open(`http://localhost:8080/api/backups/download/${filename}`);
+    window.open(`https://dime-time-backend.onrender.com/api/backups/download/${filename}`);
     showToastSuccess('Backup package download started.');
   };
 

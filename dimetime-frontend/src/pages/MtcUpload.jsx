@@ -71,7 +71,7 @@ export default function MtcUpload({ user }) {
   const fetchAdminMtcs = async () => {
     setAdminLoading(true);
     try {
-      const response = await axios.get('http://localhost:8080/api/mtc-documents');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/mtc-documents');
       if (response.data) {
         setAdminMtcs(response.data);
       }
@@ -86,7 +86,7 @@ export default function MtcUpload({ user }) {
     try {
       setError('');
       setSuccess('');
-      const response = await axios.put(`http://localhost:8080/api/mtc-documents/${id}/status?status=APPROVED&operator=${user.username}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/mtc-documents/${id}/status?status=APPROVED&operator=${user.username}`);
       if (response.status === 200) {
         setSuccess('MTC Certificate approved successfully.');
         fetchAdminMtcs();
@@ -102,7 +102,7 @@ export default function MtcUpload({ user }) {
     try {
       setError('');
       setSuccess('');
-      const response = await axios.put(`http://localhost:8080/api/mtc-documents/${id}/status?status=REJECTED&operator=${user.username}&comment=${encodeURIComponent(reason)}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/mtc-documents/${id}/status?status=REJECTED&operator=${user.username}&comment=${encodeURIComponent(reason)}`);
       if (response.status === 200) {
         setSuccess('MTC Certificate rejected.');
         fetchAdminMtcs();
@@ -117,7 +117,7 @@ export default function MtcUpload({ user }) {
     try {
       setError('');
       setSuccess('');
-      const response = await axios.delete(`http://localhost:8080/api/mtc-documents/${id}?operator=${user.username}`);
+      const response = await axios.delete(`https://dime-time-backend.onrender.com/api/mtc-documents/${id}?operator=${user.username}`);
       if (response.status === 200) {
         setSuccess('MTC Certificate deleted successfully.');
         fetchAdminMtcs();
@@ -129,7 +129,7 @@ export default function MtcUpload({ user }) {
 
   const fetchPurchaseOrders = async () => {
     try {
-      const endpoint = `http://localhost:8080/api/purchase-orders/manufacturer/${user?.username}`;
+      const endpoint = `https://dime-time-backend.onrender.com/api/purchase-orders/manufacturer/${user?.username}`;
       const response = await axios.get(endpoint);
       if (response.data) {
         // Show all active POs, only hide when final workflow is completed (COMPLETED, CLOSED)
@@ -145,7 +145,7 @@ export default function MtcUpload({ user }) {
 
   const fetchMtcHistory = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/mtc-documents');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/mtc-documents');
       if (response.data) {
         // Filter history by current manufacturer username
         const history = response.data.filter(doc => doc.uploadedBy === user?.username);
@@ -219,7 +219,7 @@ export default function MtcUpload({ user }) {
     formData.append('uploadedBy', user?.username || 'manufacturer');
     formData.append('poNumber', selectedPoNumber);
 
-    const endpoint = 'http://localhost:8080/api/mtc-documents/ocr-upload';
+    const endpoint = 'https://dime-time-backend.onrender.com/api/mtc-documents/ocr-upload';
 
     try {
       const response = await axios.post(endpoint, formData, {
@@ -286,7 +286,7 @@ export default function MtcUpload({ user }) {
         validationResult: currentScore >= 80 ? 'REVIEW_REQUIRED' : 'REJECTED'
       };
       const response = await axios.post(
-        `http://localhost:8080/api/mtc-documents/generate?poNumber=${selectedPoNumber}&uploadedBy=${user?.username}`,
+        `https://dime-time-backend.onrender.com/api/mtc-documents/generate?poNumber=${selectedPoNumber}&uploadedBy=${user?.username}`,
         payload
       );
       if (response.status === 200 && response.data) {
@@ -328,7 +328,7 @@ export default function MtcUpload({ user }) {
   };
 
   const downloadMtcPdf = (mtcId) => {
-    window.open(`http://localhost:8080/api/mtc-documents/${mtcId}/pdf`, '_blank');
+    window.open(`https://dime-time-backend.onrender.com/api/mtc-documents/${mtcId}/pdf`, '_blank');
   };
 
   const getStatusBadgeStyle = (status) => {

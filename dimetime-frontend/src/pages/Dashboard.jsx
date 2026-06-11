@@ -54,19 +54,19 @@ export default function Dashboard({ user: propUser }) {
     setError('');
     try {
       const role = user?.role || 'SUPPLIER';
-      let statsUrl = 'http://localhost:8080/api/dashboard/stats';
+      let statsUrl = 'https://dime-time-backend.onrender.com/api/dashboard/stats';
 
       if (role === 'SUPPLIER') {
-        statsUrl = `http://localhost:8080/api/dashboard/supplier/stats?username=${user.username}`;
+        statsUrl = `https://dime-time-backend.onrender.com/api/dashboard/supplier/stats?username=${user.username}`;
       } else if (role === 'MANUFACTURER') {
-        statsUrl = `http://localhost:8080/api/dashboard/manufacturer/stats?username=${user.username}`;
+        statsUrl = `https://dime-time-backend.onrender.com/api/dashboard/manufacturer/stats?username=${user.username}`;
       } else if (role === 'ADMIN') {
-        statsUrl = 'http://localhost:8080/api/dashboard/admin/stats';
+        statsUrl = 'https://dime-time-backend.onrender.com/api/dashboard/admin/stats';
       }
 
       const [statsRes, logsRes] = await Promise.all([
         axios.get(statsUrl),
-        axios.get('http://localhost:8080/api/audit-logs')
+        axios.get('https://dime-time-backend.onrender.com/api/audit-logs')
       ]);
 
       if (statsRes.data) {

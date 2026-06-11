@@ -26,7 +26,7 @@ export default function Production({ user }) {
 
   const fetchMtcs = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/mtc-documents');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/mtc-documents');
       if (response.data) {
         setMtcs(response.data);
       }
@@ -46,7 +46,7 @@ export default function Production({ user }) {
     setLoading(true);
     try {
       // Fetch POs assigned to this manufacturer
-      const response = await axios.get(`http://localhost:8080/api/purchase-orders/manufacturer/${username}`);
+      const response = await axios.get(`https://dime-time-backend.onrender.com/api/purchase-orders/manufacturer/${username}`);
       if (response.data) {
         // Filter only those that are in production phases
         setPos(response.data.filter(po => 
@@ -66,7 +66,7 @@ export default function Production({ user }) {
     setSuccess('');
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/purchase-orders/${poNumber}/status?status=${nextStatus}&operator=${username}`
+        `https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/status?status=${nextStatus}&operator=${username}`
       );
       if (response.status === 200) {
         setSuccess(`Purchase Order ${poNumber} updated to ${nextStatus.replace('_', ' ')}!`);

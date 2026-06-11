@@ -38,7 +38,7 @@ export default function MtcReports({ user }) {
   const fetchMtcCertificates = async (showSpinner = false) => {
     if (showSpinner) setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8080/api/mtc-documents');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/mtc-documents');
       if (response.data) {
         setMtcList(response.data);
       }
@@ -68,7 +68,7 @@ export default function MtcReports({ user }) {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/mtc-documents/${mtcId}/status?status=${nextStatus}&operator=${user?.username || 'supplier'}${commentUrlParam}`
+        `https://dime-time-backend.onrender.com/api/mtc-documents/${mtcId}/status?status=${nextStatus}&operator=${user?.username || 'supplier'}${commentUrlParam}`
       );
       if (response.status === 200) {
         setSuccess(`MTC Certificate successfully ${nextStatus.toLowerCase()}!`);
@@ -88,7 +88,7 @@ export default function MtcReports({ user }) {
   };
 
   const downloadPdf = (mtcId) => {
-    window.open(`http://localhost:8080/api/mtc-documents/${mtcId}/pdf`, '_blank');
+    window.open(`https://dime-time-backend.onrender.com/api/mtc-documents/${mtcId}/pdf`, '_blank');
   };
 
   const getStatusBadgeStyle = (status) => {

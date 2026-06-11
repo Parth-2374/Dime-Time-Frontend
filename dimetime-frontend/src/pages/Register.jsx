@@ -62,7 +62,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/auth/register', {
         fullName,
         email,
         mobile,

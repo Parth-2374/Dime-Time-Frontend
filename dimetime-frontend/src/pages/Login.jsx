@@ -33,7 +33,7 @@ export default function Login({ onLoginSuccess }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/auth/login', {
         username,
         password,
       });
@@ -63,8 +63,8 @@ export default function Login({ onLoginSuccess }) {
     setLoading(true);
 
     const endpoint = recoveryMode === 'password' 
-      ? 'http://localhost:8080/api/auth/forgot-password/request' 
-      : 'http://localhost:8080/api/auth/forgot-username/request';
+      ? 'https://dime-time-backend.onrender.com/api/auth/forgot-password/request' 
+      : 'https://dime-time-backend.onrender.com/api/auth/forgot-username/request';
 
     try {
       const response = await axios.post(endpoint, { email });
@@ -85,7 +85,7 @@ export default function Login({ onLoginSuccess }) {
 
     if (recoveryMode === 'password') {
       try {
-        await axios.post('http://localhost:8080/api/auth/forgot-password/verify', { email, otp });
+        await axios.post('https://dime-time-backend.onrender.com/api/auth/forgot-password/verify', { email, otp });
         setSuccess('OTP verified successfully.');
         setRecoveryStep(3);
       } catch (err) {
@@ -95,7 +95,7 @@ export default function Login({ onLoginSuccess }) {
       }
     } else {
       try {
-        const response = await axios.post('http://localhost:8080/api/auth/forgot-username/verify', { email, otp });
+        const response = await axios.post('https://dime-time-backend.onrender.com/api/auth/forgot-username/verify', { email, otp });
         setRecoveredUsername(response.data.username);
         setSuccess('OTP verified successfully.');
         setRecoveryStep(3);
@@ -135,7 +135,7 @@ export default function Login({ onLoginSuccess }) {
     }
 
     try {
-      await axios.post('http://localhost:8080/api/auth/forgot-password/reset', {
+      await axios.post('https://dime-time-backend.onrender.com/api/auth/forgot-password/reset', {
         email,
         otp,
         newPassword,

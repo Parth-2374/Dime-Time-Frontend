@@ -47,7 +47,7 @@ export default function InvoiceManagement({ user }) {
   const fetchInvoices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:8080/api/invoices');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/invoices');
       if (res.data) {
         setInvoices(res.data);
       }
@@ -60,7 +60,7 @@ export default function InvoiceManagement({ user }) {
   };
 
   const handleDownloadPdf = (id) => {
-    window.open(`http://localhost:8080/api/invoices/${id}/pdf`, '_blank');
+    window.open(`https://dime-time-backend.onrender.com/api/invoices/${id}/pdf`, '_blank');
   };
 
   const handleDelete = async (id, invoiceNumber) => {
@@ -68,7 +68,7 @@ export default function InvoiceManagement({ user }) {
       return;
     }
     try {
-      await axios.delete(`http://localhost:8080/api/invoices/${id}?operator=${username}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/invoices/${id}?operator=${username}`);
       setSuccess(`Invoice ${invoiceNumber} deleted successfully.`);
       fetchInvoices();
       setTimeout(() => setSuccess(''), 4000);
@@ -93,7 +93,7 @@ export default function InvoiceManagement({ user }) {
         operator: username
       };
 
-      const res = await axios.post('http://localhost:8080/api/payments/initiate', payload);
+      const res = await axios.post('https://dime-time-backend.onrender.com/api/payments/initiate', payload);
       const paymentData = res.data;
 
       if (paymentMethod === 'COD') {
@@ -123,7 +123,7 @@ export default function InvoiceManagement({ user }) {
     setPaymentLoading(true);
     try {
       const txRef = 'pay_test_' + Math.random().toString(36).substring(2, 11).toUpperCase();
-      await axios.post('http://localhost:8080/api/payments/complete', {
+      await axios.post('https://dime-time-backend.onrender.com/api/payments/complete', {
         paymentNumber: simPaymentNumber,
         transactionReference: txRef,
         operator: username
@@ -144,7 +144,7 @@ export default function InvoiceManagement({ user }) {
     setShowRazorpaySim(false);
     setPaymentLoading(true);
     try {
-      await axios.post('http://localhost:8080/api/payments/fail', {
+      await axios.post('https://dime-time-backend.onrender.com/api/payments/fail', {
         paymentNumber: simPaymentNumber,
         operator: username
       });

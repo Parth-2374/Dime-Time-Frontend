@@ -22,7 +22,7 @@ export default function FeatureRequests({ user }) {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.get('http://localhost:8080/api/feature-requests');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/feature-requests');
       if (res.data) {
         setRequests(res.data);
       }
@@ -53,7 +53,7 @@ export default function FeatureRequests({ user }) {
         description: newRequest.description,
         status: 'PENDING'
       };
-      await axios.post('http://localhost:8080/api/feature-requests', payload);
+      await axios.post('https://dime-time-backend.onrender.com/api/feature-requests', payload);
       showToastSuccess('Feature request submitted successfully.');
       setShowAddModal(false);
       setNewRequest({ priority: 'MEDIUM', description: '' });
@@ -68,7 +68,7 @@ export default function FeatureRequests({ user }) {
     try {
       const req = requests.find(r => r.id === id);
       const payload = { ...req, status };
-      await axios.put(`http://localhost:8080/api/feature-requests/${id}`, payload);
+      await axios.put(`https://dime-time-backend.onrender.com/api/feature-requests/${id}`, payload);
       showToastSuccess(`Request status updated to ${status}.`);
       fetchRequests();
     } catch (err) {
@@ -80,7 +80,7 @@ export default function FeatureRequests({ user }) {
   const deleteRequest = async (id) => {
     if (!window.confirm('Purge this request?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/feature-requests/${id}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/feature-requests/${id}`);
       showToastSuccess('Request deleted.');
       fetchRequests();
     } catch (err) {

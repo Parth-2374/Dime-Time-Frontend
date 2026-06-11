@@ -45,11 +45,11 @@ export default function SupplierPerformance({ user }) {
     setError('');
     try {
       const [usersRes, rfqsRes, posRes, mtcsRes, grnsRes] = await Promise.all([
-        axios.get('http://localhost:8080/api/users'),
-        axios.get('http://localhost:8080/api/rfqs'),
-        axios.get('http://localhost:8080/api/purchase-orders'),
-        axios.get('http://localhost:8080/api/mtc-documents'),
-        axios.get('http://localhost:8080/api/grns')
+        axios.get('https://dime-time-backend.onrender.com/api/users'),
+        axios.get('https://dime-time-backend.onrender.com/api/rfqs'),
+        axios.get('https://dime-time-backend.onrender.com/api/purchase-orders'),
+        axios.get('https://dime-time-backend.onrender.com/api/mtc-documents'),
+        axios.get('https://dime-time-backend.onrender.com/api/grns')
       ]);
 
       // Filter only users with role SUPPLIER
@@ -82,7 +82,7 @@ export default function SupplierPerformance({ user }) {
     e.preventDefault();
     try {
       const payload = { ...editingSupplier, ...editForm };
-      await axios.put(`http://localhost:8080/api/users/${editingSupplier.id}?operator=${user?.username || 'admin'}`, payload);
+      await axios.put(`https://dime-time-backend.onrender.com/api/users/${editingSupplier.id}?operator=${user?.username || 'admin'}`, payload);
       showToastSuccess(`Supplier profile updated successfully.`);
       setEditingSupplier(null);
       fetchScmData();
@@ -95,7 +95,7 @@ export default function SupplierPerformance({ user }) {
   const deleteSupplier = async (id) => {
     if (!window.confirm('Delete this supplier permanent from registry?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/users/${id}?operator=${user?.username || 'admin'}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/users/${id}?operator=${user?.username || 'admin'}`);
       showToastSuccess('Supplier purged successfully.');
       fetchScmData();
     } catch (err) {

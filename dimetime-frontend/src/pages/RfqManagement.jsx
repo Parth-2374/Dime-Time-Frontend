@@ -73,10 +73,10 @@ export default function RfqManagement({ user }) {
       let response;
       if (role === 'SUPPLIER') {
         // Suppliers see their own created RFQs
-        response = await axios.get(`http://localhost:8080/api/rfqs/creator/${username}`);
+        response = await axios.get(`https://dime-time-backend.onrender.com/api/rfqs/creator/${username}`);
       } else {
         // Manufacturers see only RFQs assigned to them
-        response = await axios.get(`http://localhost:8080/api/rfqs/assigned/${username}`);
+        response = await axios.get(`https://dime-time-backend.onrender.com/api/rfqs/assigned/${username}`);
       }
       if (response.data) {
         setRfqs(response.data);
@@ -112,7 +112,7 @@ export default function RfqManagement({ user }) {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.post('http://localhost:8080/api/rfqs', {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/rfqs', {
         ...formData,
         thickness: formData.thickness ? parseFloat(formData.thickness) : null,
         width: formData.width ? parseFloat(formData.width) : null,
@@ -135,7 +135,7 @@ export default function RfqManagement({ user }) {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.put(`http://localhost:8080/api/rfqs/${rfqNumber}/broadcast?operator=${username}`);
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/rfqs/${rfqNumber}/broadcast?operator=${username}`);
       if (response.status === 200) {
         setSuccess(`RFQ ${rfqNumber} successfully broadcasted to all manufacturers!`);
         fetchRfqs();
@@ -148,7 +148,7 @@ export default function RfqManagement({ user }) {
   const handleCancelRfq = async (rfqNumber) => {
     if (!window.confirm('Are you sure you want to cancel this RFQ?')) return;
     try {
-      await axios.put(`http://localhost:8080/api/rfqs/${rfqNumber}/cancel?operator=${username}`);
+      await axios.put(`https://dime-time-backend.onrender.com/api/rfqs/${rfqNumber}/cancel?operator=${username}`);
       setSuccess(`RFQ ${rfqNumber} cancelled.`);
       fetchRfqs();
     } catch (err) {
@@ -181,7 +181,7 @@ export default function RfqManagement({ user }) {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8080/api/quotations', {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/quotations', {
         rfqNumber: activeRfqForQuote.rfqNumber,
         manufacturer: username,
         unitPrice: parseFloat(quoteData.unitPrice),

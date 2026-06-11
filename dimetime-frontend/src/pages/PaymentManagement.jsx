@@ -35,7 +35,7 @@ export default function PaymentManagement({ user }) {
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:8080/api/payments');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/payments');
       if (res.data) {
         setPayments(res.data);
       }
@@ -59,7 +59,7 @@ export default function PaymentManagement({ user }) {
         operator: username
       };
 
-      const res = await axios.post('http://localhost:8080/api/payments/complete', payload);
+      const res = await axios.post('https://dime-time-backend.onrender.com/api/payments/complete', payload);
       setSuccess(`COD Payment ${paymentNumber} updated successfully via ${actionLabel}. Status is COMPLETED.`);
       fetchPayments();
       setTimeout(() => setSuccess(''), 5000);

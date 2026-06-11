@@ -29,7 +29,7 @@ export default function Profile({ user, onLogout }) {
   const fetchProfile = async () => {
     try {
       setLoadingProfile(true);
-      const res = await axios.get('http://localhost:8080/api/users/profile');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/users/profile');
       setProfileData(res.data);
       setFetchError(null);
     } catch (err) {
@@ -109,7 +109,7 @@ export default function Profile({ user, onLogout }) {
 
     setSavingProfile(true);
     try {
-      const res = await axios.put('http://localhost:8080/api/users/profile', {
+      const res = await axios.put('https://dime-time-backend.onrender.com/api/users/profile', {
         email: editEmail,
         mobileNumber: editMobile
       });
@@ -153,7 +153,7 @@ export default function Profile({ user, onLogout }) {
     }
 
     try {
-      await axios.put('http://localhost:8080/api/users/change-username', {
+      await axios.put('https://dime-time-backend.onrender.com/api/users/change-username', {
         newUsername,
         confirmUsername
       });
@@ -190,7 +190,7 @@ export default function Profile({ user, onLogout }) {
     }
 
     try {
-      await axios.put('http://localhost:8080/api/users/change-password', {
+      await axios.put('https://dime-time-backend.onrender.com/api/users/change-password', {
         oldPassword,
         newPassword,
         confirmPassword: confirmNewPassword

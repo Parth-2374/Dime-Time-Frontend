@@ -77,7 +77,7 @@ export default function App() {
 
   const fetchFeaturesList = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/features');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/features');
       if (res.data) {
         setFeaturesList(res.data);
       }

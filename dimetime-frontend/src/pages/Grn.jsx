@@ -14,8 +14,8 @@ export default function Grn() {
     const fetchData = async () => {
       try {
         const [grnsRes, posRes] = await Promise.all([
-          axios.get('http://localhost:8080/api/grns'),
-          axios.get('http://localhost:8080/api/purchase-orders')
+          axios.get('https://dime-time-backend.onrender.com/api/grns'),
+          axios.get('https://dime-time-backend.onrender.com/api/purchase-orders')
         ]);
         if (grnsRes.data) setGrns(grnsRes.data);
         if (posRes.data) setPos(posRes.data);
@@ -39,7 +39,7 @@ export default function Grn() {
   };
 
   const handleDownloadPdf = (id) => {
-    window.open(`http://localhost:8080/api/grns/${id}/pdf`, '_blank');
+    window.open(`https://dime-time-backend.onrender.com/api/grns/${id}/pdf`, '_blank');
   };
 
   const handleDeleteGrn = async (id, grnNumber) => {
@@ -47,7 +47,7 @@ export default function Grn() {
     try {
       const savedUser = localStorage.getItem('user');
       const operator = savedUser ? JSON.parse(savedUser).username : 'admin';
-      const response = await axios.delete(`http://localhost:8080/api/grns/${id}?operator=${operator}`);
+      const response = await axios.delete(`https://dime-time-backend.onrender.com/api/grns/${id}?operator=${operator}`);
       if (response.status === 200) {
         setGrns(grns.filter(g => g.id !== id));
       }

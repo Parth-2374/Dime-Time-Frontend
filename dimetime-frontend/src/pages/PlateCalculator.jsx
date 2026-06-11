@@ -36,7 +36,7 @@ export default function PlateCalculator({ user }) {
 
   const fetchHistory = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/plate-calculations');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/plate-calculations');
       if (response.data) {
         setHistory(response.data);
       }
@@ -111,7 +111,7 @@ export default function PlateCalculator({ user }) {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/plate-calculations', formData, {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/plate-calculations', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -138,7 +138,7 @@ export default function PlateCalculator({ user }) {
     formData.append('uploadedBy', user?.username || 'admin');
 
     try {
-      const response = await axios.post('http://localhost:8080/api/material-uploads', formData, {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/material-uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -337,7 +337,7 @@ export default function PlateCalculator({ user }) {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/plate-calculations', formData, {
+      const response = await axios.post('https://dime-time-backend.onrender.com/api/plate-calculations', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

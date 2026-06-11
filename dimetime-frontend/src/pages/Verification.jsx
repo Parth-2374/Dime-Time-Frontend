@@ -33,8 +33,8 @@ export default function Verification({ user }) {
   const fetchLatestDetailsForPo = async (poNumber) => {
     try {
       const [uploadRes, mtcRes] = await Promise.all([
-        axios.get(`http://localhost:8080/api/material-uploads/po/${poNumber}`).catch(() => ({ data: null })),
-        axios.get(`http://localhost:8080/api/mtc-documents?poNumber=${poNumber}`).catch(() => ({ data: null }))
+        axios.get(`https://dime-time-backend.onrender.com/api/material-uploads/po/${poNumber}`).catch(() => ({ data: null })),
+        axios.get(`https://dime-time-backend.onrender.com/api/mtc-documents?poNumber=${poNumber}`).catch(() => ({ data: null }))
       ]);
       if (uploadRes && uploadRes.data) {
         setLatestUpload(uploadRes.data);
@@ -57,9 +57,9 @@ export default function Verification({ user }) {
     const loadInitialData = async () => {
       try {
         const [posResponse, uploadResponse, mtcResponse] = await Promise.all([
-          axios.get('http://localhost:8080/api/purchase-orders'),
-          axios.get('http://localhost:8080/api/material-uploads/latest'),
-          axios.get('http://localhost:8080/api/mtc-documents/latest')
+          axios.get('https://dime-time-backend.onrender.com/api/purchase-orders'),
+          axios.get('https://dime-time-backend.onrender.com/api/material-uploads/latest'),
+          axios.get('https://dime-time-backend.onrender.com/api/mtc-documents/latest')
         ]);
 
         if (posResponse.data) {
@@ -127,7 +127,7 @@ export default function Verification({ user }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/verification?poNumber=${selectedPoNumber}&verifiedBy=${user?.username || 'admin'}`
+        `https://dime-time-backend.onrender.com/api/verification?poNumber=${selectedPoNumber}&verifiedBy=${user?.username || 'admin'}`
       );
 
       if (response.status === 200 && response.data) {
@@ -152,7 +152,7 @@ export default function Verification({ user }) {
     setGrnLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/grns?poNumber=${selectedPoNumber}&generatedBy=${user?.username || 'admin'}`
+        `https://dime-time-backend.onrender.com/api/grns?poNumber=${selectedPoNumber}&generatedBy=${user?.username || 'admin'}`
       );
 
       if (response.status === 200) {

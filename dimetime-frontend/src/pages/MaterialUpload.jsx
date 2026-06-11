@@ -62,7 +62,7 @@ export default function MaterialUpload({ user }) {
 
   const fetchUploads = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/material-uploads');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/material-uploads');
       if (response.data) {
         setUploads(response.data);
       }
@@ -75,7 +75,7 @@ export default function MaterialUpload({ user }) {
     try {
       setSuccess('');
       setError('');
-      const response = await axios.post(`http://localhost:8080/api/material-uploads/${id}/reprocess?operator=${user.username}`);
+      const response = await axios.post(`https://dime-time-backend.onrender.com/api/material-uploads/${id}/reprocess?operator=${user.username}`);
       if (response.status === 200) {
         setSuccess('OCR analysis reprocessed successfully. Confidence levels updated.');
         fetchUploads();
@@ -90,7 +90,7 @@ export default function MaterialUpload({ user }) {
     try {
       setSuccess('');
       setError('');
-      const response = await axios.delete(`http://localhost:8080/api/material-uploads/${id}?operator=${user.username}`);
+      const response = await axios.delete(`https://dime-time-backend.onrender.com/api/material-uploads/${id}?operator=${user.username}`);
       if (response.status === 200) {
         setSuccess('Material upload record deleted successfully.');
         fetchUploads();
@@ -115,7 +115,7 @@ export default function MaterialUpload({ user }) {
   const handleEditUploadSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8080/api/material-uploads/${editingUpload.id}?operator=${user.username}`, {
+      const response = await axios.put(`https://dime-time-backend.onrender.com/api/material-uploads/${editingUpload.id}?operator=${user.username}`, {
         ...editingUpload,
         grade: editUploadFormData.grade,
         quantity: editUploadFormData.quantity,
@@ -138,7 +138,7 @@ export default function MaterialUpload({ user }) {
     const fetchMtc = async () => {
       if (selectedPoNumber) {
         try {
-          const response = await axios.get(`http://localhost:8080/api/mtc-documents?poNumber=${selectedPoNumber}`);
+          const response = await axios.get(`https://dime-time-backend.onrender.com/api/mtc-documents?poNumber=${selectedPoNumber}`);
           if (response.data && response.data.length > 0) {
             setLatestMtc(response.data[0]);
           } else {
@@ -163,7 +163,7 @@ export default function MaterialUpload({ user }) {
 
   const fetchPurchaseOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/purchase-orders');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/purchase-orders');
       if (response.data) {
         const activePos = response.data.filter(po => 
           !['COMPLETED', 'CLOSED', 'GRN_GENERATED'].includes(po.status)
@@ -442,7 +442,7 @@ export default function MaterialUpload({ user }) {
     formData.append('poNumber', selectedPoNumber);
 
     try {
-      const ocrResponse = await axios.post('http://localhost:8080/api/material-uploads', formData, {
+      const ocrResponse = await axios.post('https://dime-time-backend.onrender.com/api/material-uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -467,7 +467,7 @@ export default function MaterialUpload({ user }) {
     setSuccess('');
     try {
       const recResponse = await axios.post(
-        `http://localhost:8080/api/verification?poNumber=${selectedPoNumber}&verifiedBy=${user?.username || 'supplier'}`
+        `https://dime-time-backend.onrender.com/api/verification?poNumber=${selectedPoNumber}&verifiedBy=${user?.username || 'supplier'}`
       );
       if (recResponse.status === 200 && recResponse.data) {
         setVerificationResult(recResponse.data);

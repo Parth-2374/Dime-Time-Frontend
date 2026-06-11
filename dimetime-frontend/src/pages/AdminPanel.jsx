@@ -59,7 +59,7 @@ export default function AdminPanel({ user: currentUser }) {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8080/api/users');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/users');
       if (response.data) {
         setUsersList(response.data);
       }
@@ -73,7 +73,7 @@ export default function AdminPanel({ user: currentUser }) {
 
   const fetchAuditLogs = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/audit-logs');
+      const response = await axios.get('https://dime-time-backend.onrender.com/api/audit-logs');
       if (response.data) {
         setAuditLogs(response.data);
       }
@@ -98,11 +98,11 @@ export default function AdminPanel({ user: currentUser }) {
     try {
       if (editingUser) {
         // Edit User
-        const response = await axios.put(`http://localhost:8080/api/users/${editingUser.id}?operator=${adminUsername}`, userForm);
+        const response = await axios.put(`https://dime-time-backend.onrender.com/api/users/${editingUser.id}?operator=${adminUsername}`, userForm);
         showToastSuccess(`Profile for ${response.data.fullName} successfully updated!`);
       } else {
         // Create User
-        await axios.post('http://localhost:8080/api/users', userForm);
+        await axios.post('https://dime-time-backend.onrender.com/api/users', userForm);
         showToastSuccess(`Successfully created user @${userForm.username}!`);
       }
       setShowAddUserModal(false);
@@ -118,7 +118,7 @@ export default function AdminPanel({ user: currentUser }) {
   const deleteUser = async (id) => {
     if (!window.confirm('Are you sure you want to delete this account?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/users/${id}?operator=${adminUsername}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/users/${id}?operator=${adminUsername}`);
       showToastSuccess('User account deactivated and purged from registry.');
       fetchUsers();
       fetchAuditLogs();
@@ -143,7 +143,7 @@ export default function AdminPanel({ user: currentUser }) {
     const newPass = window.prompt('Enter new password for this user:');
     if (!newPass) return;
     try {
-      await axios.put(`http://localhost:8080/api/users/${id}/reset-password?password=${newPass}&operator=${adminUsername}`);
+      await axios.put(`https://dime-time-backend.onrender.com/api/users/${id}/reset-password?password=${newPass}&operator=${adminUsername}`);
       showToastSuccess('User password reset successfully.');
     } catch (err) {
       console.error(err);

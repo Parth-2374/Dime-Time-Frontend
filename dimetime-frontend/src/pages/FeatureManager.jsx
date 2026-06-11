@@ -22,7 +22,7 @@ export default function FeatureManager({ user, onFeaturesChanged }) {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.get('http://localhost:8080/api/features');
+      const res = await axios.get('https://dime-time-backend.onrender.com/api/features');
       if (res.data) {
         setFeatures(res.data);
       }
@@ -54,11 +54,11 @@ export default function FeatureManager({ user, onFeaturesChanged }) {
     e.preventDefault();
     try {
       if (editingFeature) {
-        await axios.put(`http://localhost:8080/api/features/${editingFeature.id}`, featureForm);
+        await axios.put(`https://dime-time-backend.onrender.com/api/features/${editingFeature.id}`, featureForm);
         showToastSuccess(`Feature config for '${featureForm.name}' updated.`);
       } else {
         const payload = { ...featureForm, createdBy: adminUsername };
-        await axios.post('http://localhost:8080/api/features', payload);
+        await axios.post('https://dime-time-backend.onrender.com/api/features', payload);
         showToastSuccess(`New Feature Flag '${featureForm.name}' registered.`);
       }
       setShowAddModal(false);
@@ -74,7 +74,7 @@ export default function FeatureManager({ user, onFeaturesChanged }) {
   const toggleStatus = async (f, newStatus) => {
     try {
       const payload = { ...f, status: newStatus };
-      await axios.put(`http://localhost:8080/api/features/${f.id}`, payload);
+      await axios.put(`https://dime-time-backend.onrender.com/api/features/${f.id}`, payload);
       showToastSuccess(`Feature '${f.name}' status set to ${newStatus}.`);
       fetchFeatures();
       triggerRefresh();
@@ -87,7 +87,7 @@ export default function FeatureManager({ user, onFeaturesChanged }) {
   const deleteFeature = async (id) => {
     if (!window.confirm('Terminate this feature flag permanent?')) return;
     try {
-      await axios.delete(`http://localhost:8080/api/features/${id}`);
+      await axios.delete(`https://dime-time-backend.onrender.com/api/features/${id}`);
       showToastSuccess('Feature flag deleted.');
       fetchFeatures();
       triggerRefresh();

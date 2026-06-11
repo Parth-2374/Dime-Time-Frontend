@@ -35,7 +35,7 @@ export default function QuotationManagement({ user }) {
     setError('');
     try {
       if (role === 'SUPPLIER') {
-        const rfqsRes = await axios.get('http://localhost:8080/api/rfqs');
+        const rfqsRes = await axios.get('https://dime-time-backend.onrender.com/api/rfqs');
         if (rfqsRes.data) {
           // Suppliers see all their created RFQs that are not cancelled
           const supplierRfqs = rfqsRes.data.filter(
@@ -51,7 +51,7 @@ export default function QuotationManagement({ user }) {
         }
       } else {
         // Manufacturer sees their submitted quotations
-        const quotesRes = await axios.get(`http://localhost:8080/api/quotations/manufacturer/${username}`);
+        const quotesRes = await axios.get(`https://dime-time-backend.onrender.com/api/quotations/manufacturer/${username}`);
         if (quotesRes.data) {
           setQuotations(quotesRes.data);
         }
@@ -66,7 +66,7 @@ export default function QuotationManagement({ user }) {
 
   const fetchQuotesForRfq = async (rfqNumber) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/quotations/rfq/${rfqNumber}`);
+      const response = await axios.get(`https://dime-time-backend.onrender.com/api/quotations/rfq/${rfqNumber}`);
       if (response.data) {
         setQuotations(response.data);
       }
@@ -95,7 +95,7 @@ export default function QuotationManagement({ user }) {
     try {
       // Hits the accepted endpoint, which auto-generates the PO and updates RFQ status
       const response = await axios.put(
-        `http://localhost:8080/api/quotations/${confirmQuote.id}/select?operator=${username}`
+        `https://dime-time-backend.onrender.com/api/quotations/${confirmQuote.id}/select?operator=${username}`
       );
       if (response.status === 200) {
         setSuccess(`Quotation approved successfully! SCM Purchase Order has been automatically generated and released to manufacturer: ${confirmQuote.manufacturer}`);

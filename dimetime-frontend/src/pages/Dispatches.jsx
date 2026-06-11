@@ -37,9 +37,9 @@ export default function Dispatches({ user }) {
     try {
       let response;
       if (role === 'SUPPLIER') {
-        response = await axios.get(`http://localhost:8080/api/purchase-orders/supplier/${companyName}`);
+        response = await axios.get(`https://dime-time-backend.onrender.com/api/purchase-orders/supplier/${companyName}`);
       } else {
-        response = await axios.get(`http://localhost:8080/api/purchase-orders/manufacturer/${username}`);
+        response = await axios.get(`https://dime-time-backend.onrender.com/api/purchase-orders/manufacturer/${username}`);
       }
 
       if (response.data) {
@@ -79,7 +79,7 @@ export default function Dispatches({ user }) {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/purchase-orders/${activePoForDispatch.poNumber}/dispatch?carrier=${dispatchData.carrier}&trackingNumber=${dispatchData.trackingNumber}&operator=${username}`
+        `https://dime-time-backend.onrender.com/api/purchase-orders/${activePoForDispatch.poNumber}/dispatch?carrier=${dispatchData.carrier}&trackingNumber=${dispatchData.trackingNumber}&operator=${username}`
       );
 
       if (response.status === 200) {
@@ -99,7 +99,7 @@ export default function Dispatches({ user }) {
     setSuccess('');
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/purchase-orders/${poNumber}/status?status=DELIVERED&operator=${username}`
+        `https://dime-time-backend.onrender.com/api/purchase-orders/${poNumber}/status?status=DELIVERED&operator=${username}`
       );
       if (response.status === 200) {
         setSuccess(`Delivery confirmed for Purchase Order ${poNumber}. Updated to DELIVERED status.`);
